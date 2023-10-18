@@ -49,6 +49,18 @@ namespace Components {
           */
       );
 
+      //! Emit parameter updated EVR
+      //!
+      void parameterUpdated(FwPrmIdType id /*!< The parameter ID*/
+      );
+
+      //! Handler implementation for run
+      //!
+      void run_handler(
+          const NATIVE_INT_TYPE portNum, /*!< The port number*/
+          NATIVE_UINT_TYPE context /*!< The call order */
+      );
+
       Os::Mutex lock; //! Protects our data from thread race conditions
       Fw::On state; //! Keeps track if LED is on or off
       U64 transitions; //! The number of on/off transitions that have occurred from FSW boot up

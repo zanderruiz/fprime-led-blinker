@@ -17,6 +17,7 @@ module LedBlinker {
     # ----------------------------------------------------------------------
 
     instance led
+    instance gpioDriver
     instance $health
     instance blockDrv
     instance tlmSend
@@ -100,6 +101,7 @@ module LedBlinker {
       rateGroup1.RateGroupMemberOut[0] -> tlmSend.Run
       rateGroup1.RateGroupMemberOut[1] -> fileDownlink.Run
       rateGroup1.RateGroupMemberOut[2] -> systemResources.run
+      rateGroup1.RateGroupMemberOut[3] -> led.run
 
       # Rate group 2
       rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup2] -> rateGroup2.CycleIn
@@ -138,6 +140,11 @@ module LedBlinker {
       # Add here connections to user-defined components
     }
 
+    # Named connection group
+    connections LedConnections {
+      # led's gpioSet output is connected to gpioDriver's gpioWrite input
+      led.gpioSet -> gpioDriver.gpioWrite
+    }
   }
 
 }
